@@ -44,7 +44,14 @@ namespace ModClass
                 v = t;
             }
 
-            return u[1] % m;
+            if (u[1] > 0)
+            {
+                return u[1] % m;
+            }
+            else
+            {
+                return m + u[1];
+            }
 
         }
 
