@@ -15,10 +15,12 @@ template <class T>
 T Sub(T &a, T &b, T &mod);
 template <class T>
 T Mul(T &a, T &b, T &mod);
-template <class T>
-T Inverse(T &a, T &mod);
-template <class T> 
-T Pow(T a, T n, T m);
+
+BigInteger Inverse(BigInteger &a, BigInteger &mod);
+
+BigInteger Pow(BigInteger a, BigInteger n, BigInteger m);
+
+BigInteger GCD(BigInteger a, BigInteger b);
 
 template <class T>
 T mul_inv(T a, T b);
@@ -29,15 +31,15 @@ void prime_divisors(T numb);
 template <class T>
 bool isPrime_simple(T x);
 
-template <class T>
-bool ferma(T x);
+
+bool ferma(BigInteger x);
 
 
 int main() {
 	ifstream fin("in_primeFactors\\prime9_in.txt");
 	ofstream fout("out_primeFactors\\prime9_out.txt");
 
-	string s = "12312312312";
+	string s = "36413321723440004479";
 	BigInteger a = stringToBigInteger(s);
 	cout << ferma(a) << endl;
 	system("pause");
@@ -63,10 +65,10 @@ T Mul(T &a, T &b, T &mod) {
 	return (a * b) % mod;
 }
 
-template <class T> // быстрое возведение в степень по модулю
-T Pow(T a, int n, T m) {
-	T r = 1;
-	while (n) {
+// быстрое возведение в степень по модулю
+BigInteger Pow(BigInteger a, BigInteger n, BigInteger m) {
+	BigInteger r = 1;
+	while (n != 0) {
 		if (n % 2 == 1)
 			r = Mul(r, a, m);
 		a = Mul(a, a, m);
@@ -75,12 +77,13 @@ T Pow(T a, int n, T m) {
 	return r;
 }
 
-template <class T> // поиск обратного по модулю
-T Inverse(T &a, T &mod) {
-	if (!(mod%a))
+ // поиск обратного по модулю
+BigInteger Inverse(BigInteger &a, BigInteger &mod) {
+	if (mod%a == 0)
 		throw (string)"This number don't have inverse";
 	a = a % mod;
-	for (int x = 1; x < mod; x++)
+	long long modInt = mod.toInt();
+	for (int x = 1; x < modInt; x++)
 		if ((a * x) % mod == 1)
 			return x;
 }
@@ -103,15 +106,15 @@ T mul_inv(T a, T b)
 }
 
 const int k = 100;
-template <class T>
-bool ferma(T x) {
+
+bool ferma(BigInteger x) {
 	if (x == 2)
 		return true;
 	srand(time(NULL));
 	for (int i = 0; i < k; i++) {
-		T rand(rand());
-		T a = (rand % (x - 2)) + 2;
-		if (gcd(a, x) != 1)
+		BigInteger rand(rand());
+		BigInteger a = (rand % (x - 2)) + 2;
+		if (GCD(a, x) != 1)
 			return false;
 		if (Pow(a, x - 1, x) != 1)
 			return false;
@@ -119,11 +122,11 @@ bool ferma(T x) {
 	return true;
 }
 
-template <class T>
-T gcd(T a, T b) {
+
+BigInteger GCD(BigInteger a, BigInteger b) {
 	if (b == 0)
 		return a;
-	return gcd(b, a%b);
+	return GCD(b, a%b);
 }
 
 template <class T> // простая проверка числа на простоту
