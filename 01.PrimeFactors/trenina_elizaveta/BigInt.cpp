@@ -113,7 +113,7 @@ void BigInt::_remove_leading_zeros() {
 		while (_digits.size() > 1 && _digits.back() == 0) {
 			_digits.pop_back();
 		}
-		// этот код нужен, чтобы у нас не было отрицательного нуля
+		// ГЅГІГ®ГІ ГЄГ®Г¤ Г­ГіГ¦ГҐГ­, Г·ГІГ®ГЎГ» Гі Г­Г Г± Г­ГҐ ГЎГ»Г«Г® Г®ГІГ°ГЁГ¶Г ГІГҐГ«ГјГ­Г®ГЈГ® Г­ГіГ«Гї
 		if (_digits.size() == 1 && _digits[0] == 0) flag = false;
 	}
 ostream& operator <<(ostream& os, const BigInt& bi) {
@@ -140,7 +140,7 @@ istream& operator >>(istream& is, BigInt& bi) {
 
 int BigInt:: operator==(const BigInt &bi) const {
 	if (bi.flag != flag) return 0;
-	if (_digits.empty()) { //2 представления 0
+	if (_digits.empty()) { //2 ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГҐГ­ГЁГї 0
 		if ((bi._digits.empty()) || ((bi._digits[0] == 0) && (bi._digits.size() == 1))) return 1;
 		else return 0;
 	}
@@ -214,7 +214,7 @@ int BigInt:: operator < (const BigInt &bi) const //a<b
 	 else if (right.flag) return left - (-right);
 
 	 if (left < right) return right + left;
-	 int carry = 0; // флаг переноса из предыдущего разряда
+	 int carry = 0; // ГґГ«Г ГЈ ГЇГҐГ°ГҐГ­Г®Г±Г  ГЁГ§ ГЇГ°ГҐГ¤Г»Г¤ГіГ№ГҐГЈГ® Г°Г Г§Г°ГїГ¤Г 
 	 int i = 0, t = 0;
 	 
 	 BigInt res(left)/*, a(left)*/;
@@ -284,7 +284,7 @@ int BigInt:: operator < (const BigInt &bi) const //a<b
 	 }
 	 else if (right.flag) return -(left*(-right));   
 	 if (left < right) return right * left;// a>b (a>=b)
-	 if ((left._digits.size() == 0) || ((left._digits.size() == 1) && (left._digits[0] == 0))) return BigInt(0);//проверка на ноль добавить
+	 if ((left._digits.size() == 0) || ((left._digits.size() == 1) && (left._digits[0] == 0))) return BigInt(0);//ГЇГ°Г®ГўГҐГ°ГЄГ  Г­Г  Г­Г®Г«Гј Г¤Г®ГЎГ ГўГЁГІГј
 	 int carry = 0;
 	 BigInt res("0"); res._digits.resize(left._digits.size() + right._digits.size() + 1, 0);
 	 //res._digits.clear();
@@ -545,7 +545,7 @@ int BigInt:: operator < (const BigInt &bi) const //a<b
 
 
 	 //BigInt b("123456789");
-	 //BigInt b("48112959837082048787");//простое
+	 //BigInt b("48112959837082048787");//ГЇГ°Г®Г±ГІГ®ГҐ
 	 //BigInt b("122296951006737507");
 	 ///*double*/ int res = factor(b);
 	 //cout << "res=" << res << endl;
@@ -586,7 +586,7 @@ int BigInt:: operator < (const BigInt &bi) const //a<b
 			// time[i] = factor(mas[i]);
 		 //};
 
-		 //ofstream fout("primes20.out.trenina.txt");// создаём объект для записи в файл
+		 //ofstream fout("primes20.out.trenina.txt");// Г±Г®Г§Г¤Г ВёГ¬ Г®ГЎГєГҐГЄГІ Г¤Г«Гї Г§Г ГЇГЁГ±ГЁ Гў ГґГ Г©Г«
 		 //for (int i = 0; i < 100; i++)
 		 //{
 			// fout << time[i] << endl;
