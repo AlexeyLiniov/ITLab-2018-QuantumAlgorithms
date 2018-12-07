@@ -14,8 +14,8 @@ namespace MillerRabinTest
         const int n = 100;
         static void Main(string[] args)
         {
-            StreamReader fin = new StreamReader("E:\\Git Projects\\inputs_fact\\composite15n_in.txt");
-            StreamWriter fout = new StreamWriter("C:\\Users\\Daria Koroleva\\Documents\\mr_c15out.txt");
+            StreamReader fin = new StreamReader("E:\\Git Projects\\inputs_fact\\primes15n_in.txt");
+            StreamWriter fout = new StreamWriter("C:\\Users\\Daria Koroleva\\Documents\\mr_p15out.txt");
 
             BigInteger x;
             string line;
@@ -60,24 +60,28 @@ namespace MillerRabinTest
         static bool MillerRabin(BigInteger x)
         {
             //1 - составное, 0 - простое
-            double d = 1;
+            double probably_composite = 1;
             for (int i = 0; i < n; i++)
             {
                 
                 if (MillerRabinAlgorithm(x))
                 {
-                    d /= 4;
+                    probably_composite /= 4;
                 }
+                else
+                {
+                    return false;
+
+                    //для возврата вероятности
+                    //return 1;
+                }
+
             }
 
-            if (d < 0.5)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
+
+            //для возврата вероятности
+            //return probably_composite;
         }
 
         static bool MillerRabinAlgorithm(BigInteger x)
